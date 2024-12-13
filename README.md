@@ -583,12 +583,14 @@ be to copy data from the source production db into the DOT DB data_<project> sch
 ### Configuring/Building Airflow Docker environment
 
 1. `cd ./docker`
-2`export POSTGRES_PASSWORD=<**Some password you will use to access DOT DB**>`
-3`docker compose -f docker-compose-with-airflow.yml build`
-4`docker compose -f docker-compose-with-airflow.yml up airflow-init`
-5`docker compose -f docker-compose-with-airflow.yml up -d`
-6`docker exec -it docker-airflow-worker-1 /bin/bash`
-7`cd /app/dot && ./install_dot.sh` 
+2. `export POSTGRES_PASSWORD=<**Some password you will use to access DOT DB**>`
+3. `eval` ``ssh-agent``
+3. `docker compose -f docker-compose-with-airflow.yml build`
+4. `docker compose -f docker-compose-with-airflow.yml up airflow-init`
+5. `docker compose -f docker-compose-with-airflow.yml up -d`
+6. `docker exec -it docker-airflow-worker-1 /bin/bash`
+7. `cd /app/dot && ./install_dot.sh` 
+  - if permission denied: `chmox +x install_dot.sh`
 
 **Note:** If using Docker on AWS, you might need to use `docker-compose` instead of `docker compose`.
 
