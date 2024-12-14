@@ -584,7 +584,7 @@ be to copy data from the source production db into the DOT DB data_<project> sch
 
 1. `cd ./docker`
 2. `export POSTGRES_PASSWORD=<**Some password you will use to access DOT DB**>`
-3. `eval` \`ssh-agent\``
+3. `eval` \`ssh-agent\`
 4. `docker compose -f docker-compose-with-airflow.yml build`
 5. `docker compose -f docker-compose-with-airflow.yml up airflow-init`
 6. `docker compose -f docker-compose-with-airflow.yml up -d`
