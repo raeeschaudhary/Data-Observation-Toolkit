@@ -584,29 +584,29 @@ be to copy data from the source production db into the DOT DB data_<project> sch
 
 1. `cd ./docker`
 2. `export POSTGRES_PASSWORD=<**Some password you will use to access DOT DB**>`
-3. `eval` ``ssh-agent``
-3. `docker compose -f docker-compose-with-airflow.yml build`
-4. `docker compose -f docker-compose-with-airflow.yml up airflow-init`
-5. `docker compose -f docker-compose-with-airflow.yml up -d`
-6. `docker exec -it docker-airflow-worker-1 /bin/bash`
-7. `cd /app/dot && ./install_dot.sh` 
-  - if permission denied: `chmox +x install_dot.sh`
+3. `eval` \`ssh-agent\``
+4. `docker compose -f docker-compose-with-airflow.yml build`
+5. `docker compose -f docker-compose-with-airflow.yml up airflow-init`
+6. `docker compose -f docker-compose-with-airflow.yml up -d`
+8. `docker exec -it docker-airflow-worker-1 /bin/bash`
+9. `cd /app/dot && ./install_dot.sh` 
+    - if permission denied: `chmox +x install_dot.sh`
 
 **Note:** If using Docker on AWS, you might need to use `docker-compose` instead of `docker compose`.
 
 Now, to set up DB connection for the DOT  ...
 
-8. To test: Connect to the DOT DB as mentioned above in section 'Testing your database connection' 
-9. Go to: [http://localhost:8083/](http://localhost:8083/) and log in with airflow/airflow
-10. Next, create a copy of the DOT DB to be used as the source database. Open a SQL session and run ...
+9. To test: Connect to the DOT DB as mentioned above in section 'Testing your database connection' 
+10. Go to: [http://localhost:8083/](http://localhost:8083/) and log in with airflow/airflow
+11. Next, create a copy of the DOT DB to be used as the source database. Open a SQL session and run ...
 
 `SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity 
 WHERE pg_stat_activity.datname = 'dot_db' AND pid <> pg_backend_pid();`
 
 `CREATE DATABASE dot_data WITH TEMPLATE dot_db OWNER postgres;`
 
-11. In top menu select **Admin** > **Connections**, click **+**
-12. Enter the Docker DOT DB details as follows:
+12. In top menu select **Admin** > **Connections**, click **+**
+13. Enter the Docker DOT DB details as follows:
 
 - Conn Id: dot_db
 - Conn Type: Postgres
@@ -616,7 +616,7 @@ WHERE pg_stat_activity.datname = 'dot_db' AND pid <> pg_backend_pid();`
 - Password: *Whatever you used when building the DOT docker environment*
 - Port: 5432
 
-13. Set up new connection in Airflow as follows:
+14. Set up new connection in Airflow as follows:
 
 - Conn Id: dot_data
 - Conn Type: Postgres
